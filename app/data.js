@@ -1,9 +1,29 @@
-  function addOption_list(){
-for(i=document.drop_list.Category.options.length-1;i>=0;i--)  {
-var Category=document.drop_list.Category;
-if(document.drop_list.Category[i].selected){
-addOption(document.drop_list.SubCat, document.drop_list.Category[i].value, document.drop_list.Category[i].value);
-removeOption(Category,i);
-}
-}
-}
+app.factory("Data", ['$http', '$location',
+    function ($http, $q, $location) {
+
+        var serviceBase = 'api/v1/';
+
+        var obj = {};
+
+        obj.get = function (q) {
+            return $http.get(serviceBase + q).then(function (results) {
+                return results.data;
+            });
+        };
+        obj.post = function (q, object) {
+            return $http.post(serviceBase + q, object).then(function (results) {
+                return results.data;
+            });
+        };
+        obj.put = function (q, object) {
+            return $http.put(serviceBase + q, object).then(function (results) {
+                return results.data;
+            });
+        };
+        obj.delete = function (q) {
+            return $http.delete(serviceBase + q).then(function (results) {
+                return results.data;
+            });
+        };
+        return obj;
+}]);
