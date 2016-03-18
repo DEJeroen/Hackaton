@@ -76,7 +76,7 @@ Vagrant.configure(2) do |config|
     sudo npm install -g nodemon
     git clone https://github.com/pimeggermont/DevOps.git /home/vagrant/DevOps
     nodemon /home/vagrant/DevOps/js/expressServer.js
-    echo "* * * * * "git pull /home/vagrant/DevOps" >> mycron
-    crontab mycron
+    sudo echo "* * * * * git pull /home/vagrant/DevOps" >> mycron
+    sudo crontab mycron
   SHELL
 end
