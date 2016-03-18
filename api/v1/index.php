@@ -21,7 +21,7 @@ delete(table name, where clause as array)
 // artikel
 $app->get('/artikel', function() { 
     global $db;
-    $rows = $db->select("artikel", "artikel_id, naam, beschikbaarheid",array());
+    $rows = $db->select("artikel", "id, naam, beschikbaarheid",array());
     echoResponse(200, $rows);
 });
 
@@ -35,9 +35,9 @@ $app->post('/artikel', function() use ($app) {
     echoResponse(200, $rows);
 });
 
-$app->put('/artikel/:artikel_id', function($id) use ($app) { 
+$app->put('/artikel/:id', function($id) use ($app) { 
     $data = json_decode($app->request->getBody());
-    $condition = array('artikel_id'=>$id);
+    $condition = array('id'=>$id);
     $mandatory = array();
     global $db;
     $rows = $db->update("artikel", $data, $condition, $mandatory);
@@ -46,9 +46,9 @@ $app->put('/artikel/:artikel_id', function($id) use ($app) {
     echoResponse(200, $rows);
 });
 
-$app->delete('/artikel/:artikel_id', function($id) { 
+$app->delete('/artikel/:id', function($id) { 
     global $db;
-    $rows = $db->delete("artikel", array('artikel_id'=>$id));
+    $rows = $db->delete("artikel", array('id'=>$id));
     if($rows["status"]=="success")
         $rows["message"] = "Artikel removed successfully.";
     echoResponse(200, $rows);

@@ -1,12 +1,12 @@
 app.controller('artikelCtrl', function ($scope, $modal, $filter, Data) {
-    $scope.artikel = {};
+    $scope.artikels = {};
     Data.get('artikel').then(function(data){
         $scope.artikel = data.data;
     });
-    $scope.deleteartikel = function(artikel){
+    $scope.deleteArtikel = function(artikels){
         if(confirm("Weet u zeker dat u de artikel wilt verwijderen?")){
-            Data.delete("artikel/"+artikel.artikel_id).then(function(result){
-                $scope.artikel = _.without($scope.artikel, _.findWhere($scope.artikel, {id:artikel.artikel_id}));
+            Data.delete("artikel/"+artikels.id).then(function(result){
+                $scope.artikels = _.without($scope.artikels, _.findWhere($scope.artikel, {id:artikels.id}));
             });
         }
     };
@@ -27,11 +27,9 @@ app.controller('artikelCtrl', function ($scope, $modal, $filter, Data) {
                 $scope.artikel.push(selectedObject);
                 $scope.artikel = $filter('orderBy')($scope.artikel, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
-                p.artikelnummer = selectedObject.artikelnummer;
-                p.achternaam = selectedObject.achternaam;
-                p.voornaam = selectedObject.voornaam;
-                p.tel = selectedObject.tel;;
-                p.comments = selectedObject.comments;
+                p.id = selectedObject.id;
+                p.naam = selectedObject.naam;
+                p.beschikbaarheid = selectedObject.beschikbaarheid;
             }
         });
     };
@@ -46,7 +44,7 @@ app.controller('artikelCtrl', function ($scope, $modal, $filter, Data) {
 
 app.controller('artikelEditCtrl', function ($scope, $modalInstance, item, Data) {
 
-  $scope.artikel = angular.copy(item);
+  $scope.artikels = angular.copy(item);
         
         $scope.cancel = function () {
             $modalInstance.dismiss('Afsluiten');
@@ -56,14 +54,14 @@ app.controller('artikelEditCtrl', function ($scope, $modalInstance, item, Data) 
 
         var original = item;
         $scope.isClean = function() {
-            return angular.equals(original, $scope.artikel);
+            return angular.equals(original, $scope.artikels);
         }
-        $scope.saveArtikel = function (artikel) {
-            artikel.uid = $scope.uid;
-            if(artikel.id > 0){
-                Data.put('artikel/'+artikel.artikel_id, artikel).then(function (result) {
+        $scope.saveArtikel = function (artikels) {
+            artikels.uid = $scope.uid;
+            if(artikels.id > 0){
+                Data.put('artikel/'+artikels.id, artikels).then(function (result) {
                     if(result.status != 'error'){
-                        var x = angular.copy(artikel);
+                        var x = angular.copy(artikels);
                         x.save = 'update';
                         $modalInstance.close(x);
                     }else{
@@ -71,10 +69,10 @@ app.controller('artikelEditCtrl', function ($scope, $modalInstance, item, Data) 
                     }
                 });
             }else{
-                Data.post('artikel', artikel).then(function (result) {
+                Data.post('artikel', artikels).then(function (result) {
 
                     if(result.status != 'error'){
-                        var x = angular.copy(artikel);
+                        var x = angular.copy(artikels);
                         x.save = 'insert';
                         x.id = result.data;
                         $modalInstance.close(x);

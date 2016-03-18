@@ -2,20 +2,19 @@
         <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
     </button>
     <div class="modal-header">
-        <h3 class="modal-title">Pas werknemer aan [Artikelnummer: {{werknemer.artikel_id}}]</h3>
+        <h3 class="modal-title">Pas artikel aan [Artikelnummer: {{artikel.id}}]</h3>
     </div>
     <div class="modal-body">
-        <form name="werknemer_form" class="form-horizontal" role="form" novalidate>
-
+        <form name="artikels_form" class="form-horizontal" role="form" novalidate>
 
             <form-element label="NAAM" mod="Naam">
-                <input type="text" class="form-control" name="Naam" placeholder="NAAM" ng-model="artikel.anaam"/>
-                 <small class="errorMessage" ng-show="artikel_form.anaam.$dirty && werknemer_form.naam.$invalid"> Vul de naam in</small>
+                <input type="text" class="form-control" name="Naam" placeholder="NAAM" ng-model="artikels.naam"/>
+                 <small class="errorMessage" ng-show="artikels_form.naam.$dirty && artikels_form.naam.$invalid"> Vul de naam in</small>
             </form-element>
 
-            <form-element label="BESCHIKBAARHEID" mod="artikel">
-                <input type="text" name="Beschikbaarheid" class="form-control" placeholder="BESCHIKBAARHEID" ng-model="artikel.beschikbaarheid"/>
-                <small class="errorMessage" ng-show="artikel_form.beschikbaarheid.$dirty && artikel_form.beschikbaarheid.$invalid"> Vul de beschikbaarheid in</small>
+            <form-element label="BESCHIKBAARHEID" mod="artikels.beschikbaarheid">
+                <input type="text" name="Beschikbaarheid" class="form-control" placeholder="BESCHIKBAARHEID" ng-model="artikels.beschikbaarheid"/>
+                <small class="errorMessage" ng-show="artikels_form.beschikbaarheid.$dirty && artikels_form.beschikbaarheid.$invalid"> Vul de beschikbaarheid in</small>
             </form-element>
 
             <div class="space"></div>
@@ -24,8 +23,8 @@
                 <form-element label="">
                     <div class="text-right">
                         <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Annuleren</a>
-                        <button ng-click="saveArtikel(artikel);"
-                                ng-disabled="artikel_form.$invalid || enableUpdate"
+                        <button ng-click="saveArtikel(artikels);"
+                                ng-disabled="artikels_form.$invalid || enableUpdate"
                                 class="btn btn-sm btn-primary"
                                 type="submit">
                             <i class="ace-icon fa fa-check"></i>{{buttonText}}
