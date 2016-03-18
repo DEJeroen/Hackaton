@@ -23,7 +23,8 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8080, host: 9000
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
@@ -70,6 +71,12 @@ Vagrant.configure(2) do |config|
   sudo git clone https://github.com/JenkinsSettings/jenkins.git /var/lib/jenkins
   sudo chmod 777 -R /var/lib/jenkins
     sudo apt-get update
-    sudo apt-get install -y jenkins
+    sudo apt-get install -y jenkins nodejs npm
+    ln -s /usr/bin/nodejs /usr/bin/node
+    sudo npm install -g nodemon
+    git clone https://github.com/pimeggermont/DevOps.git /home/vagrant/DevOps
+    nodemon /home/vagrant/DevOps/js/expressServer.js
+    echo "* * * * * "git pull /home/vagrant/DevOps" >> mycron
+    crontab mycron
   SHELL
 end
