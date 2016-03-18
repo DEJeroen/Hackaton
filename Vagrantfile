@@ -66,6 +66,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
   wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
   sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+  sudo git clone https://github.com/JenkinsSettings/jenkins.git /var/lib/jenkins
+  sudo chmod 777 -R /var/lib/jenkins
     sudo apt-get update
     sudo apt-get install -y jenkins
   SHELL
