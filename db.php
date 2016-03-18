@@ -23,10 +23,10 @@ if($result = mysqli_query($link, $sql)){
         }
         echo "</table>";
         // Close result set
-        mysqli_free_result(json.stringify($result));
+        mysqli_free_result($result);
 
     } else{
-        echo "No records matching your query were found.";
+        echo "No records matching your query we	re found.";
     }
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
